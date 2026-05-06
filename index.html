@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kültür Köprüsü</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col transition-colors duration-300">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-sm p-4 sticky top-0 z-10">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-blue-600 flex items-center gap-3">
+                <i class="fa-solid fa-bridge"></i> Kültür Köprüsü
+            </h1>
+            <button id="contrast-toggle" class="p-3 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 text-lg font-medium transition-colors" aria-label="Yüksek Kontrast Modu Aç/Kapat">
+                <i class="fa-solid fa-circle-half-stroke mr-2"></i> Kontrast
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex flex-col items-center justify-center p-6 w-full max-w-4xl mx-auto">
+        
+        <!-- Main Menu Section -->
+        <div id="main-menu-section" class="w-full fade-in flex-col items-center flex">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 text-center">Kültür Köprüsü'ne Hoş Geldin</h2>
+            <p class="text-xl text-gray-600 mb-12 text-center max-w-2xl mx-auto">Tarihi keşfetmek ve öğrenmek için bir mod seç.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl">
+                <!-- Narrator Card -->
+                <button id="menu-narrator-btn" class="group relative bg-white border-2 border-transparent hover:border-blue-500 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col items-center gap-6 focus:ring-4 focus:ring-blue-300 outline-none text-left w-full">
+                    <div class="w-24 h-24 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-5xl mb-2 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-book-open-reader"></i>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Akıllı Anlatıcı</h3>
+                        <p class="text-base text-gray-500">Yaş grubuna özel hikaye ve bilgilerle tarihi mekanları keşfet.</p>
+                    </div>
+                </button>
+
+                <!-- Quiz Card (Disabled/Soon) -->
+                <div class="group relative bg-gray-50 border-2 border-dashed border-gray-300 rounded-3xl p-8 flex flex-col items-center gap-6 opacity-80">
+                    <div class="absolute top-4 right-4 bg-gray-200 text-gray-600 text-xs font-bold px-3 py-1 rounded-full">Yakında</div>
+                    <div class="w-24 h-24 bg-gray-200 text-gray-400 rounded-full flex items-center justify-center text-5xl mb-2">
+                        <i class="fa-solid fa-clipboard-question"></i>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-gray-600 mb-2">Kültür Testi</h3>
+                        <p class="text-base text-gray-500">Öğrendiklerini sına ve tarih bilginle puanlar kazan.</p>
+                    </div>
+                </div>
+
+                <!-- Virtual Museum Card (Disabled/Soon) -->
+                <div class="group relative bg-gray-50 border-2 border-dashed border-gray-300 rounded-3xl p-8 flex flex-col items-center gap-6 opacity-80">
+                    <div class="absolute top-4 right-4 bg-gray-200 text-gray-600 text-xs font-bold px-3 py-1 rounded-full">Yakında</div>
+                    <div class="w-24 h-24 bg-gray-200 text-gray-400 rounded-full flex items-center justify-center text-5xl mb-2">
+                        <i class="fa-solid fa-vr-cardboard"></i>
+                    </div>
+                    <div class="text-center">
+                        <h3 class="text-2xl font-bold text-gray-600 mb-2">Sanal Müze</h3>
+                        <p class="text-base text-gray-500">Tarihi eserleri 3D veya AR teknolojisi ile incele.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Welcome Section (Age Selection) -->
+        <div id="welcome-section" class="w-full hidden fade-in flex-col items-center">
+            <button id="back-to-menu-btn" class="self-start mb-6 text-gray-600 hover:text-blue-600 text-xl font-medium transition-colors">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Ana Menüye Dön
+            </button>
+            
+            <div class="text-center w-full mb-12">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">Tarihe Dokunmaya Hazır mısın?</h2>
+                <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">Sana en uygun anlatımı sunabilmemiz için lütfen yaş grubunu seç.</p>
+            </div>
+            
+            <!-- Age Groups Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                <!-- 0-12 Card -->
+                <button class="age-btn group relative bg-white border-2 border-transparent hover:border-blue-500 rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center gap-4 focus:ring-4 focus:ring-blue-300 outline-none" data-age="0-12">
+                    <div class="w-20 h-20 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-4xl mb-2 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-child"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800">Çocuk</h3>
+                    <p class="text-lg text-gray-500">0 - 12 Yaş</p>
+                </button>
+
+                <!-- 12-18 Card -->
+                <button class="age-btn group relative bg-white border-2 border-transparent hover:border-purple-500 rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center gap-4 focus:ring-4 focus:ring-purple-300 outline-none" data-age="12-18">
+                    <div class="w-20 h-20 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center text-4xl mb-2 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-user-graduate"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800">Genç</h3>
+                    <p class="text-lg text-gray-500">12 - 18 Yaş</p>
+                </button>
+
+                <!-- 18-35 Card -->
+                <button class="age-btn group relative bg-white border-2 border-transparent hover:border-emerald-500 rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center gap-4 focus:ring-4 focus:ring-emerald-300 outline-none" data-age="18-35">
+                    <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-4xl mb-2 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800">Yetişkin</h3>
+                    <p class="text-lg text-gray-500">18 - 35 Yaş</p>
+                </button>
+
+                <!-- 35+ Card -->
+                <button class="age-btn group relative bg-white border-2 border-transparent hover:border-amber-500 rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col items-center gap-4 focus:ring-4 focus:ring-amber-300 outline-none" data-age="35+">
+                    <div class="w-20 h-20 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center text-4xl mb-2 group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-800">Uzman</h3>
+                    <p class="text-lg text-gray-500">35+ Yaş</p>
+                </button>
+            </div>
+        </div>
+
+        <!-- Location Search Section (Hidden initially) -->
+        <div id="search-section" class="w-full hidden fade-in flex-col items-center">
+            <button id="back-btn" class="self-start mb-6 text-gray-600 hover:text-blue-600 text-xl font-medium transition-colors">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Geri Dön
+            </button>
+            
+            <div class="bg-white rounded-3xl shadow-lg p-8 md:p-12 w-full">
+                <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center">Nereyi keşfetmek istersin?</h2>
+                
+                <div class="flex flex-col md:flex-row gap-4 w-full">
+                    <div class="relative flex-grow">
+                        <div class="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none">
+                            <i class="fa-solid fa-map-location-dot text-gray-400 text-2xl"></i>
+                        </div>
+                        <input type="text" id="location-input" class="w-full pl-16 pr-6 py-5 text-xl bg-gray-50 border border-gray-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-500 transition-all text-gray-800 placeholder-gray-400" placeholder="Örn: Göbeklitepe, Ayasofya...">
+                        
+                        <!-- Microphone button for accessibility -->
+                        <button id="mic-btn" class="absolute inset-y-0 right-0 pr-6 flex items-center text-gray-400 hover:text-blue-600 transition-colors">
+                            <i class="fa-solid fa-microphone text-2xl"></i>
+                        </button>
+                    </div>
+                    
+                    <button id="submit-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-5 px-10 rounded-2xl text-xl shadow-md hover:shadow-lg transition-all focus:ring-4 focus:ring-blue-300 outline-none flex items-center justify-center gap-3">
+                        <span>Keşfet</span>
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story Presentation Section (Hidden initially) -->
+        <div id="story-section" class="w-full hidden fade-in flex-col items-center">
+            <button id="new-search-btn" class="self-start mb-6 text-gray-600 hover:text-blue-600 text-xl font-medium transition-colors">
+                <i class="fa-solid fa-magnifying-glass mr-2"></i> Yeni Arama
+            </button>
+
+            <div class="bg-white rounded-3xl shadow-lg p-8 md:p-12 w-full relative">
+                <!-- Loading State -->
+                <div id="loading-state" class="hidden flex flex-col items-center justify-center py-12">
+                    <i class="fa-solid fa-compass fa-spin text-6xl text-blue-500 mb-6"></i>
+                    <p class="text-2xl text-gray-600 font-medium">Tarihin sayfaları aralanıyor...</p>
+                </div>
+
+                <!-- Content State -->
+                <div id="content-state" class="hidden">
+                    <div class="flex justify-between items-center mb-8 pb-6 border-b border-gray-100">
+                        <h2 id="story-title" class="text-3xl font-extrabold text-gray-900"></h2>
+                        <button id="tts-btn" class="bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-bold py-3 px-6 rounded-xl flex items-center gap-3 text-lg transition-colors focus:ring-4 focus:ring-indigo-300 outline-none" aria-label="Metni Sesli Oku">
+                            <i class="fa-solid fa-volume-high text-xl"></i>
+                            <span id="tts-text">Dinle</span>
+                        </button>
+                    </div>
+                    
+                    <div id="story-content" class="text-xl md:text-2xl text-gray-700 leading-relaxed font-serif min-h-[200px]">
+                        <!-- Typewriter text goes here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="p-6 text-center text-gray-500 text-lg">
+        &copy; 2026 Kültür Köprüsü (WRO)
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
